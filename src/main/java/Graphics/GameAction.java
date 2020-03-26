@@ -4,9 +4,7 @@ import main.java.Logic.Updater;
 import main.java.Util.Vector2D;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 public class GameAction implements MouseMotionListener, MouseListener {
@@ -74,4 +72,6 @@ public class GameAction implements MouseMotionListener, MouseListener {
 
         this.gamePanel.setCursor(cursor);
     }
+
+
 }

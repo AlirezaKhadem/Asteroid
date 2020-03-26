@@ -1,13 +1,8 @@
 package main.java.Util;
 
-import main.java.Intefaces.ObjectFactory;
-import main.java.Intefaces.Pool;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public abstract class ObjectPool<T> {
 

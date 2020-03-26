@@ -1,7 +1,4 @@
-package main.java.Logic;
-
-import main.java.Util.Config;
-import main.java.Util.Urls;
+package main.java.Util;
 
 import java.lang.reflect.Field;
 import java.util.Properties;

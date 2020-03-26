@@ -2,9 +2,6 @@ package main.java.Models;
 
 import main.java.Util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SpaceShip extends MyComponent {
 
 

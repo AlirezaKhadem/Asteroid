@@ -1,5 +1,6 @@
 package main.java.Util;
 
+import main.java.Logic.AsteroidFactory;
 import main.java.Models.Asteroid;
 
 import java.util.List;

@@ -8,11 +8,13 @@ import main.java.Util.Urls;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Timer;
+//import java.util.Timer;
 import java.util.TimerTask;
 
 public class GamePanel extends JPanel implements Updatable {
@@ -20,7 +22,6 @@ public class GamePanel extends JPanel implements Updatable {
     private Drawer drawer;
     private GameState gameState;
     private Updater updater;
-    private Timer timer;
     private GameAction gameAction;
     private BufferedImage bgImage;
 
@@ -41,7 +42,6 @@ public class GamePanel extends JPanel implements Updatable {
 
     private void init() {
         updater = new Updater();
-        timer = new Timer();
         gameState = GameState.getInstance();
         gameAction = new GameAction(this, updater);
         configurePanel();
@@ -49,14 +49,14 @@ public class GamePanel extends JPanel implements Updatable {
     }
 
     private void start() {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        javax.swing.Timer t = new javax.swing.Timer(16, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 update();
                 draw();
-
             }
-        }, 100, 16);
+        });
+        t.start();
+
     }
 
     private void configurePanel() {
@@ -119,7 +119,7 @@ public class GamePanel extends JPanel implements Updatable {
         updater.update();
     }
 
-    public void draw(){
+    public void draw() {
         repaint();
         revalidate();
 

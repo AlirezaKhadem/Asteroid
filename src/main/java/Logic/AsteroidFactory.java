@@ -1,8 +1,9 @@
-package main.java.Util;
+package main.java.Logic;
 
 import main.java.Intefaces.ObjectFactory;
-import main.java.Logic.Constants;
+import main.java.Util.Constants;
 import main.java.Models.Asteroid;
+import main.java.Util.Vector2D;
 
 import java.util.Random;
 

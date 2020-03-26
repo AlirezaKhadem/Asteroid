@@ -1,6 +1,5 @@
 package main.java.Models;
 
-import main.java.Util.MyComponent;
 import main.java.Util.Vector2D;
 
 public class Bullet extends MyComponent {

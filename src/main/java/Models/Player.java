@@ -1,6 +1,6 @@
 package main.java.Models;
 
-import main.java.Logic.Constants;
+import main.java.Util.Constants;
 import main.java.Util.Vector2D;
 
 import java.io.File;

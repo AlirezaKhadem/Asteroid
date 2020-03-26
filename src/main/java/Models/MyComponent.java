@@ -1,4 +1,7 @@
-package main.java.Util;
+package main.java.Models;
+
+import main.java.Util.ImageLoader;
+import main.java.Util.Vector2D;
 
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;

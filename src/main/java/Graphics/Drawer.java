@@ -1,12 +1,10 @@
 package main.java.Graphics;
 
-import main.java.Logic.Constants;
+import main.java.Util.Constants;
 import main.java.Logic.GameState;
 import main.java.Models.Asteroid;
 import main.java.Models.Bullet;
-import main.java.Models.SpaceShip;
-import main.java.Util.MyComponent;
-import main.java.Util.ObjectPool;
+import main.java.Models.MyComponent;
 
 import java.awt.*;
 import java.util.List;
