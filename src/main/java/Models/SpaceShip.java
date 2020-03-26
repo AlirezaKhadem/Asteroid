@@ -1,15 +1,14 @@
 package main.java.Models;
 
-import main.java.Util.MyComponent;
-import main.java.Util.SoundPlayer;
-import main.java.Util.Urls;
-import main.java.Util.Vector2D;
+import main.java.Util.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpaceShip extends MyComponent {
 
-    private ArrayList<Bullet> bullets = new ArrayList<>();
+
+    private BulletsObjectPool bulletsObjectPool;
 
 
     public SpaceShip(Vector2D position) {
@@ -18,13 +17,17 @@ public class SpaceShip extends MyComponent {
 
 
     public void shootBullet(Vector2D position) {
-        SoundPlayer.play(Urls.RESOURCE_URL + "Sound\\laser.wav");
-
-        this.bullets.add(new Bullet(position));
+        SoundPlayer.play(Urls.RESOURCE_URL + "Sound/laser.wav");
+        bulletsObjectPool.checkOut().setPosition(position);
     }
 
-    public ArrayList<Bullet> getBullets() {
-        return bullets;
+    public BulletsObjectPool getBulletsObjectPool() {
+        return bulletsObjectPool;
     }
+
+    public void setBulletsObjectPool(BulletsObjectPool bulletsObjectPool) {
+        this.bulletsObjectPool = bulletsObjectPool;
+    }
+
 
 }

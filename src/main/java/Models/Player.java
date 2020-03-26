@@ -27,7 +27,7 @@ public class Player implements Serializable {
 
     }
 
-    public SpaceShip getShip() {
+    public SpaceShip getSpaceShip() {
         return ship;
     }
 }

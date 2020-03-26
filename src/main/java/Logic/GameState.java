@@ -1,63 +1,80 @@
 package main.java.Logic;
 
-import main.java.Intefaces.Updatable;
-import main.java.Models.AsteroidGroup;
+import main.java.Models.Asteroid;
+import main.java.Models.Bullet;
 import main.java.Models.Player;
+import main.java.Util.AsteroidsObjectPool;
+import main.java.Util.BulletsObjectPool;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class GameState implements Updatable {
+public class GameState {
+    private static GameState gameState;
 
     private Player player;
-    private AsteroidGroup asteroidGroup;
+    private AsteroidsObjectPool asteroidsObjectPool;
+    private List<Asteroid> asteroids;
 
-    private Timer updateTimer = new Timer();
+
+    private List<Bullet> bullets;
+    private BulletsObjectPool bulletsObjectPool;
+
 
     private boolean gameOver = false;
 
-    public GameState() {
+    private GameState() {
         this.player = new Player("", "", "");
-        this.asteroidGroup = new AsteroidGroup();
 
-        this.updateTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                GameState.this.update();
-            }
-        }, 100, 60);
+        asteroids = new ArrayList<>();
+        asteroidsObjectPool = new AsteroidsObjectPool(asteroids);
+        for (int i = 0; i < 100; i++) {
+            checkOutAsteroid();
+        }
+
+        bullets = Collections.synchronizedList( new ArrayList<>());
+        bulletsObjectPool = new BulletsObjectPool(bullets);
+        player.getSpaceShip().setBulletsObjectPool(bulletsObjectPool);
     }
 
-    private void checkCollision() {
-
-        Mapper.checkBulletsCollision(this.getPlayer().getShip(), this.getAsteroidGroup());
-        if (Mapper.checkSpaceShipCollisions(this.getPlayer().getShip(), this.getAsteroidGroup().getAsteroidPool()))
-            this.setGameOver(true);
-
-    }
-
-    @Override
-    public void update() {
-        Update.updateAsteroidGroup(this.getAsteroidGroup().getAsteroidPool());
-        Update.updateBullets(this.getPlayer().getShip().getBullets());
-
-        this.checkCollision();
+    public static GameState getInstance() {
+        if (gameState == null) gameState = new GameState();
+        return gameState;
     }
 
     public boolean isGameOver() {
         return gameOver;
     }
 
-    private void setGameOver(boolean gameOver) {
+    public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
 
-    public AsteroidGroup getAsteroidGroup() {
-        return asteroidGroup;
+    public List<Asteroid> getAsteroids() {
+        return asteroids;
     }
 
     public Player getPlayer() {
         return player;
     }
+
+    public void checkInAsteroid(Asteroid asteroid) {
+        asteroid.reset();
+        asteroidsObjectPool.checkIn(asteroid);
+    }
+
+    public void checkOutAsteroid() {
+        asteroidsObjectPool.checkOut();
+    }
+
+    public void checkInBullet(Bullet bullet) {
+        bulletsObjectPool.checkIn(bullet);
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
 }
 

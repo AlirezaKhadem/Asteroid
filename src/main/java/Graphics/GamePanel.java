@@ -1,7 +1,8 @@
 package main.java.Graphics;
 
 import main.java.Intefaces.Updatable;
-import main.java.Logic.Mapper;
+import main.java.Logic.GameState;
+import main.java.Logic.Updater;
 import main.java.Util.ImageLoader;
 import main.java.Util.Urls;
 
@@ -17,10 +18,10 @@ import java.util.TimerTask;
 public class GamePanel extends JPanel implements Updatable {
 
     private Drawer drawer;
-
-
-    private Mapper mapper = new Mapper();
-    private Timer myTimer = new Timer();
+    private GameState gameState;
+    private Updater updater;
+    private Timer timer;
+    private GameAction gameAction;
     private BufferedImage bgImage;
 
     private int bgImageX;
@@ -33,24 +34,32 @@ public class GamePanel extends JPanel implements Updatable {
 
     public GamePanel() {
         super();
-        this.init();
+        init();
+        start();
     }
 
 
     private void init() {
-        new GameAction(this);
+        updater = new Updater();
+        timer = new Timer();
+        gameState = GameState.getInstance();
+        gameAction = new GameAction(this, updater);
+        configurePanel();
 
-        this.configPanel();
-        this.myTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                GamePanel.this.update();
-
-            }
-        }, 100, 60);
     }
 
-    private void configPanel() {
+    private void start() {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                update();
+                draw();
+
+            }
+        }, 100, 16);
+    }
+
+    private void configurePanel() {
 
         try (Scanner input = new Scanner(new File(Urls.GAMEPANEL_CONFIG_FILE))) {
 
@@ -69,34 +78,29 @@ public class GamePanel extends JPanel implements Updatable {
 
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.paintGamePanel((Graphics2D) g);
+        if (drawer == null) drawer = new Drawer((Graphics2D) g);
+        drawer.setGraphics2D((Graphics2D) g);
+        paintGamePanel((Graphics2D) g);
     }
 
     private void paintGamePanel(Graphics2D graphics2D) {
         graphics2D.drawImage(this.bgImage, this.bgImageX, this.bgImageY, null);
 
-        if (drawer == null) drawer = new Drawer(graphics2D);
-
-        if (this.mapper.isGameOver()) {
-            drawer.drawGameOver(graphics2D);
+        if (gameState.isGameOver()) {
+            drawer.drawGameOver();
         } else {
-            drawer.drawGameState(graphics2D,this.mapper.getAsteroids(),this.mapper.getSpaceShip());
+            drawer.drawGameState();
         }
     }
 
     private void updateBackgroundImage() {
+        updateCounter();
 
-        this.repaint();
-        this.revalidate();
-
-        this.updateCounter();
-
-        this.bgImageX += coefficient * this.bgImageSpeedX;
-        this.bgImageY += coefficient * this.bgImageSpeedY;
+        bgImageX += coefficient * bgImageSpeedX;
+        bgImageY += coefficient * bgImageSpeedY;
 
 
     }
@@ -111,7 +115,14 @@ public class GamePanel extends JPanel implements Updatable {
 
     @Override
     public void update() {
-        this.updateBackgroundImage();
+        updateBackgroundImage();
+        updater.update();
+    }
+
+    public void draw(){
+        repaint();
+        revalidate();
+
     }
 
 

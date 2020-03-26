@@ -29,7 +29,14 @@ public class MyComponent{
     }
 
     private void init() {
-        this.image = ImageLoader.getInstance().loadImage("image\\" + this.componentName + ".png");
+        this.image = ImageLoader.getInstance().loadImage("Image/" + this.componentName + ".png");
+    }
+
+    public void reset(Vector2D position, int size, int speedX, int speedY) {
+        this.position = position;
+        this.size = size;
+        this.speedY = speedY;
+        this.speedX = speedX;
     }
 
 
@@ -64,6 +71,18 @@ public class MyComponent{
     public Rectangle2D getBox() {
         return new Rectangle2D.Float(position.getX(), position.getY(), size, size);
     }
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setSpeedX(int speedX) {
+        this.speedX = speedX;
+    }
+
+    public void setSpeedY(int speedY) {
+        this.speedY = speedY;
+    }
+
 
 }
 

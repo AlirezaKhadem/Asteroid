@@ -1,7 +1,6 @@
 package main.java.Graphics;
 
-import main.java.Logic.GameState;
-import main.java.Logic.Mapper;
+import main.java.Logic.Updater;
 import main.java.Util.Vector2D;
 
 import java.awt.*;
@@ -13,18 +12,19 @@ import java.awt.image.BufferedImage;
 public class GameAction implements MouseMotionListener, MouseListener {
 
     private final GamePanel gamePanel;
+    private final Updater updater;
 
-    public GameAction(GamePanel gamePanel) {
+    public GameAction(GamePanel gamePanel, Updater updater) {
         this.gamePanel = gamePanel;
+        this.updater = updater;
         this.init();
     }
 
     private void init() {
 
-        this.hideCursor();
-
-        this.gamePanel.addMouseListener(this);
-        this.gamePanel.addMouseMotionListener(this);
+        hideCursor();
+        gamePanel.addMouseListener(this);
+        gamePanel.addMouseMotionListener(this);
 
     }
 
@@ -36,7 +36,8 @@ public class GameAction implements MouseMotionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        Mapper.shootBullet(new Vector2D(e.getX(), e.getY()));
+        updater.shootBullet(new Vector2D(e.getX(), e.getY()));
+
     }
 
     @Override
@@ -56,12 +57,12 @@ public class GameAction implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Mapper.moveSpaceShip(new Vector2D(e.getX(), e.getY()));
+        updater.moveSpaceShip(new Vector2D(e.getX(), e.getY()));
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Mapper.moveSpaceShip(new Vector2D(e.getX(), e.getY()));
+        updater.moveSpaceShip(new Vector2D(e.getX(), e.getY()));
     }
 
     private void hideCursor() {
