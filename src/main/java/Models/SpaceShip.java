@@ -14,7 +14,7 @@ public class SpaceShip extends MyComponent {
 
 
     public void shootBullet(Vector2D position) {
-        SoundPlayer.play(Urls.RESOURCE_URL + "Sound/laser.wav");
+        SoundPlayer.play(Urls.createUrls("default").getProperty("RESOURCE_URL") + "Sound/laser.wav");
         bulletsObjectPool.checkOut().setPosition(position);
     }
 

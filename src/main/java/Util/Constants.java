@@ -14,11 +14,12 @@ public class Constants {
     public static int minSpeed;
     public static int maxSize;
     public static int minSize;
+    public static int asteroidNumber;
 
     private static Config configConstants = new Config();
 
     static {
-        configConstance(configConstants.ReadProperties(Urls.CONSTANCE_CONFIG_FILE));
+        configConstance(configConstants.ReadProperties(Urls.createUrls("default").getProperty("CONSTANCE_CONFIG_FILE")));
     }
 
 

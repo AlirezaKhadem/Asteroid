@@ -1,11 +1,36 @@
 package main.java.Util;
 
-public class Urls {
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 
-    public static final String RESOURCE_URL = "resources/";
-    public static final String FRAME_CONFIG_FILE = "resources/configFiles/graphicConfigFiles/MainFrameConfigFile";
-    public static final String GAMEPANEL_CONFIG_FILE = "resources/configFiles/graphicConfigFiles/GamePanelConfigFile";
-    public static final String CONSTANCE_CONFIG_FILE = "resources/configFiles/LogicConfigFiles/ConstantsConfigFile";
+public class Urls extends Properties {
+    private static Urls urls;
+    private static String defaultAddress = "resources/configFiles/logicConfigFiles/MainConfigFile";
+    private Urls(String address){
+        FileReader reader = null;
+        try {
+            reader = new FileReader(address);
+            this.load(reader);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("main config file doesn't exist");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+
+    }
+    public static Urls createUrls(String address){
+        if(urls == null){
+            if(address.equals("default")){
+                address = defaultAddress;
+            }
+            urls = new Urls(address);
+
+        }
+        return urls;
+    }
 
 }

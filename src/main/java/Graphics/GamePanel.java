@@ -13,9 +13,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+//import java.util.Properties;
 import java.util.Scanner;
 //import java.util.Timer;
-import java.util.TimerTask;
+//import java.util.TimerTask;
 
 public class GamePanel extends JPanel implements Updatable {
 
@@ -61,7 +62,7 @@ public class GamePanel extends JPanel implements Updatable {
 
     private void configurePanel() {
 
-        try (Scanner input = new Scanner(new File(Urls.GAMEPANEL_CONFIG_FILE))) {
+        try (Scanner input = new Scanner(new File(Urls.createUrls("default").getProperty("GAMEPANEL_CONFIG_FILE")))) {
 
             this.bgImage = ImageLoader.getInstance().loadImage(input.next());
             this.bgImageX = input.nextInt();

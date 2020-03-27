@@ -2,14 +2,34 @@ package main.java;
 
 import main.java.Graphics.GamePanel;
 import main.java.Graphics.MainFrame;
+import main.java.Util.Urls;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Properties;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        MainFrame mainFrame = new MainFrame(new GamePanel());
+        Main program = new Main(args);
 
+    }
+    public Main(String[] args){
+            Urls urls =Urls.createUrls(getConfigFile(args));
+            MainFrame mainFrame = new MainFrame(new GamePanel());
 
+    }
+    private String getConfigFile(String[] args){
+        String configAddress = "default";
+        if(args.length > 1){
+            configAddress = args[1];
+        }else{
+            if(!System.getenv("ASTEROID_CONFIG").isEmpty()){
+                configAddress = System.getenv("ASTEROID_CONFIG");
+            }
+        }
+        return configAddress;
     }
 
 }

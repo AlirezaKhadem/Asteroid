@@ -92,7 +92,8 @@ public class Updater implements Updatable {
     }
 
     private void startWave() {
-        for (int i = 0; i < 100; i++) {
+
+        for (int i = 0; i < Constants.asteroidNumber; i++) {
             gameState.checkOutAsteroid();
         }
     }

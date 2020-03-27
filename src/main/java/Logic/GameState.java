@@ -5,6 +5,7 @@ import main.java.Models.Bullet;
 import main.java.Models.Player;
 import main.java.Util.AsteroidsObjectPool;
 import main.java.Util.BulletsObjectPool;
+import main.java.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +30,7 @@ public class GameState {
 
         asteroids = new ArrayList<>();
         asteroidsObjectPool = new AsteroidsObjectPool(asteroids);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < Constants.asteroidNumber; i++) {
             checkOutAsteroid();
         }
 
