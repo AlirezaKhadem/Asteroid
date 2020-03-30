@@ -2,7 +2,8 @@ package main.java;
 
 import main.java.Graphics.GamePanel;
 import main.java.Graphics.MainFrame;
-import main.java.Util.Urls;
+import main.java.Util.ConfigLoader;
+//import main.java.Util.Urls;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,7 +17,7 @@ public class Main {
 
     }
     public Main(String[] args){
-            Urls urls =Urls.createUrls(getConfigFile(args));
+            ConfigLoader urls =ConfigLoader.getInstance(getConfigFile(args));
             MainFrame mainFrame = new MainFrame(new GamePanel());
 
     }

@@ -1,16 +1,19 @@
 package main.java.Graphics;
 
-import main.java.Util.Constants;
+//import main.java.Util.Constants;
 import main.java.Logic.GameState;
 import main.java.Models.Asteroid;
 import main.java.Models.Bullet;
 import main.java.Models.MyComponent;
+import main.java.Util.ConfigLoader;
+import main.java.Util.IntegerProperties;
 
 import java.awt.*;
 import java.util.List;
 
 
 class Drawer {
+    private IntegerProperties constants;
 
     private Graphics2D graphics2D;
     private GameState gameState;
@@ -18,6 +21,7 @@ class Drawer {
     public Drawer(Graphics2D graphics2D) {
         gameState = GameState.getInstance();
         setGraphics2D(graphics2D);
+        constants = ConfigLoader.getInstance("default").getProperties("Constants");
     }
 
     void drawGameState() {
@@ -51,7 +55,7 @@ class Drawer {
         int width = fontMetrics.stringWidth(prompt);
         graphics2D.setColor(Color.white);
         graphics2D.setFont(font);
-        graphics2D.drawString(prompt, (Constants.maxWidth - width) / 2, (Constants.maxHeight - 50) / 2);
+        graphics2D.drawString(prompt, (constants.readInteger("maxWidth") - width) / 2, (constants.readInteger("maxHeight") - 50) / 2);
     }
 
     void drawImage(MyComponent component) {

@@ -1,13 +1,9 @@
 package main.java.Graphics;
 
-import main.java.Util.Urls;
-
+import main.java.Util.ConfigLoader;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Properties;
-import java.util.Scanner;
 
 public class MainFrame extends JFrame {
 
@@ -25,7 +21,7 @@ public class MainFrame extends JFrame {
 
         try {
 
-            this.ConfigFrame(new File(Urls.createUrls("default").getProperty("FRAME_CONFIG_FILE")));
+            this.ConfigFrame(ConfigLoader.getInstance("default").getProperties("FRAME_CONFIG_FILE"));
 
             this.setLocationRelativeTo(null);
 
@@ -38,20 +34,11 @@ public class MainFrame extends JFrame {
 
     }
 
-    private void ConfigFrame(File configFile) {
-
-
-        try (Scanner input = new Scanner(configFile)) {
-
-            this.setSize(input.nextInt(), input.nextInt());
-            this.setDefaultCloseOperation(input.nextInt());
-            this.setResizable(input.nextBoolean());
-            this.setUndecorated(input.nextBoolean());
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+    private void ConfigFrame(Properties configFile) {
+            this.setSize(Integer.parseInt(configFile.getProperty("width")), Integer.parseInt(configFile.getProperty("height")));
+            this.setDefaultCloseOperation(Integer.parseInt(configFile.getProperty("CloseOperation")));
+            this.setResizable(Boolean.parseBoolean(configFile.getProperty("Resizable")));
+            this.setUndecorated(Boolean.parseBoolean(configFile.getProperty("Undecorated")));
     }
 
 }

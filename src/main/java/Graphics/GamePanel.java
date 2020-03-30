@@ -3,8 +3,8 @@ package main.java.Graphics;
 import main.java.Intefaces.Updatable;
 import main.java.Logic.GameState;
 import main.java.Logic.Updater;
+import main.java.Util.ConfigLoader;
 import main.java.Util.ImageLoader;
-import main.java.Util.Urls;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 //import java.util.Properties;
+import java.util.Properties;
 import java.util.Scanner;
 //import java.util.Timer;
 //import java.util.TimerTask;
@@ -62,20 +63,18 @@ public class GamePanel extends JPanel implements Updatable {
 
     private void configurePanel() {
 
-        try (Scanner input = new Scanner(new File(Urls.createUrls("default").getProperty("GAMEPANEL_CONFIG_FILE")))) {
+//        try (Scanner input = new Scanner(new File(Urls.createUrls("default").getProperty("GAMEPANEL_CONFIG_FILE")))) {
+        Properties properties = ConfigLoader.getInstance("default").getProperties("GAMEPANEL_CONFIG_FILE");
 
-            this.bgImage = ImageLoader.getInstance().loadImage(input.next());
-            this.bgImageX = input.nextInt();
-            this.bgImageY = input.nextInt();
-            this.bgImageSpeedX = input.nextInt();
-            this.bgImageSpeedY = input.nextInt();
-            this.coefficient = input.nextInt();
-            this.timeCounter = input.nextInt();
+            this.bgImage = ImageLoader.getInstance().loadImage(properties.getProperty("bgImage"));
+            this.bgImageX = Integer.parseInt(properties.getProperty("bgImageX"));
+            this.bgImageY = Integer.parseInt(properties.getProperty("bgImageY"));
+            this.bgImageSpeedX =Integer.parseInt(properties.getProperty("bgImageSpeedX"));
+            this.bgImageSpeedY = Integer.parseInt(properties.getProperty("bgImageSpeedY"));
+            this.coefficient = Integer.parseInt(properties.getProperty("coefficient"));
+            this.timeCounter = Integer.parseInt(properties.getProperty("timeCounter"));
 
-            this.setSize(input.nextInt(), input.nextInt());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+            this.setSize(Integer.parseInt(properties.getProperty("width")), Integer.parseInt(properties.getProperty("height")));
 
     }
 
