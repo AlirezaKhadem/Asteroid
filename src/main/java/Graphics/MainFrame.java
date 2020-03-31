@@ -1,6 +1,8 @@
 package main.java.Graphics;
 
 import main.java.Util.ConfigLoader;
+import main.java.Util.IntegerProperties;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Properties;
@@ -34,9 +36,9 @@ public class MainFrame extends JFrame {
 
     }
 
-    private void ConfigFrame(Properties configFile) {
-            this.setSize(Integer.parseInt(configFile.getProperty("width")), Integer.parseInt(configFile.getProperty("height")));
-            this.setDefaultCloseOperation(Integer.parseInt(configFile.getProperty("CloseOperation")));
+    private void ConfigFrame(IntegerProperties configFile) {
+            this.setSize(configFile.readInteger("width"), configFile.readInteger("height"));
+            this.setDefaultCloseOperation(configFile.readInteger("CloseOperation"));
             this.setResizable(Boolean.parseBoolean(configFile.getProperty("Resizable")));
             this.setUndecorated(Boolean.parseBoolean(configFile.getProperty("Undecorated")));
     }
