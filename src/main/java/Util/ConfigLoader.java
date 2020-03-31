@@ -1,5 +1,6 @@
 package main.java.Util;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,9 +39,14 @@ public class ConfigLoader {
             String adrs = (String)entry.getValue();
             IntegerProperties property = new IntegerProperties();
             try {
-                FileReader reader = new FileReader(adrs);
-                property.load(reader);
-                properties.put((String)entry.getKey(), property);
+                if(!entry.getKey().equals("RESOURCE_URL")) {
+                    File test = new File(adrs);
+//                    System.out.println(f.getAbsolutePath());
+                    System.out.println(test.getAbsolutePath());
+                    FileReader reader = new FileReader(test.getAbsolutePath());
+                    property.load(reader);
+                    properties.put((String) entry.getKey(), property);
+                }
 
             } catch (FileNotFoundException e) {
                 System.out.println(entry.getKey() + " file doesn't exist");
