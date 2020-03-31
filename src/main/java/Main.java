@@ -26,7 +26,8 @@ public class Main {
         if(args.length > 1){
             configAddress = args[1];
         }else{
-            if(!System.getenv("ASTEROID_CONFIG").isEmpty()){
+//            System.out.println(S);
+            if(System.getenv("ASTEROID_CONFIG")!= null && !System.getenv("ASTEROID_CONFIG").isEmpty()){
                 configAddress = System.getenv("ASTEROID_CONFIG");
             }
         }
