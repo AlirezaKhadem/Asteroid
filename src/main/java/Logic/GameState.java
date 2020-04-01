@@ -3,16 +3,12 @@ package main.java.Logic;
 import main.java.Models.Asteroid;
 import main.java.Models.Bullet;
 import main.java.Models.Player;
-import main.java.Util.AsteroidsObjectPool;
-import main.java.Util.BulletsObjectPool;
-import main.java.Util.ConfigLoader;
-import main.java.Util.IntegerProperties;
-//import main.java.Util.Constants;
+import main.java.Util.*;
+//import main.java.Util.Configs;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 public class GameState {
     private static GameState gameState;
@@ -24,18 +20,18 @@ public class GameState {
 
     private List<Bullet> bullets;
     private BulletsObjectPool bulletsObjectPool;
-    private IntegerProperties constants;
+    private GameConstants constants;
 
 
     private boolean gameOver = false;
 
     private GameState() {
         this.player = new Player("", "", "");
-        constants = ConfigLoader.getInstance("default").getProperties("Constants");
+        constants = GameConstants.getInstance();
 
         asteroids = new ArrayList<>();
         asteroidsObjectPool = new AsteroidsObjectPool(asteroids);
-        for (int i = 0; i < constants.readInteger("asteroidNumber"); i++) {
+        for (int i = 0; i < constants.getConstant("asteroidNumber"); i++) {
             checkOutAsteroid();
         }
 

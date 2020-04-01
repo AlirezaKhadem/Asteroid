@@ -1,0 +1,26 @@
+package main.java.Util;
+
+public abstract class SwingConfig {
+   protected int width , height;
+    protected Configs properties;
+    protected String name;
+
+    public SwingConfig(String name) {
+        this.name = name;
+        setProperties();
+
+    }
+    protected void initialize(){
+        width = properties.readInteger("width");
+        height = properties.readInteger("height");
+    }
+
+    public int getHeight() {
+        return height;
+    }
+    public int getWidth() {
+        return width;
+    }
+    protected abstract void setProperties();
+
+}

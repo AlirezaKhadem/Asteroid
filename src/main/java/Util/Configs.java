@@ -2,8 +2,11 @@ package main.java.Util;
 
 import java.util.Properties;
 
-public class IntegerProperties extends Properties {
+public class Configs extends Properties {
     public int readInteger(String name){
         return Integer.parseInt(this.getProperty(name));
+    }
+    public boolean readBoolean(String name){
+        return Boolean.parseBoolean(this.getProperty(name));
     }
 }
