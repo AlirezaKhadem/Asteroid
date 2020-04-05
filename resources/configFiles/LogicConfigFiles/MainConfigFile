@@ -1,4 +1,4 @@
 RESOURCE_URL = resources/
-FRAME_CONFIG_FILE = resources/configFiles/graphicConfigFiles/MainFrameConfigFile
-GAMEPANEL_CONFIG_FILE = resources/configFiles/graphicConfigFiles/GamePanelConfigFile
-Constants = resources/configFiles/LogicConfigFiles/ConstantsConfigFile
+FRAME_CONFIG_FILE = resources/configFiles/graphicConfigFiles/MainFrameConfigFile.properties
+GAMEPANEL_CONFIG_FILE = resources/configFiles/graphicConfigFiles/GamePanelConfigFile.properties
+Constants = resources/configFiles/LogicConfigFiles/ConstantsConfigFile.properties
